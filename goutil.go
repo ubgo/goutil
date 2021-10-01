@@ -2,6 +2,7 @@ package goutil
 
 import (
 	"encoding/json"
+	"log"
 	"math"
 	"math/rand"
 	"os"
@@ -80,6 +81,15 @@ func ToJSONIndent(val interface{}) (string, error) {
 	}
 
 	return string(b), nil
+}
+
+func PrintToJSON(val interface{}) {
+	b, err := ToJSONIndent(val)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	log.Println(b)
 }
 
 // Use Make the unused value used so golang will not give error while compiling

@@ -80,7 +80,6 @@ func Test_SnakeCase(t *testing.T) {
 }
 
 func Test_ToJSON(t *testing.T) {
-
 	type Student struct {
 		Name   string `json:"name"`
 		RoleNo int    `json:"roleNo"`

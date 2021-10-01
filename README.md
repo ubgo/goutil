@@ -69,8 +69,15 @@ fmt.Println(goutil.ToJSONIndent(student))
     "name": "Lucian",
     "roleNo": 7
   }
-```
 
+
+goutil.PrintToJSON(student)
+// out:
+  {
+    "name": "Lucian",
+    "roleNo": 7
+  }
+```
 
 ### Use - Accepts any value as argument
 Use Make the unused value used so golang will not give error while compiling
