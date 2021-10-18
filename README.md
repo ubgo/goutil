@@ -109,6 +109,20 @@ result, ok := IntIndex([]int{1, 2, 3}, 2)
 // output: 1, true
 ```
 
+### CleanString(s string) string {
+Clean the string by removing all the special chars and other weird chars and returns alphanumeric only
+```go
+result := CleanString("##khanakia")
+// output: khanakia
+```
+
+### HashString(val string) string
+Convert string to sha256
+```go
+result := HashString("luci")
+// output: 2fdcbc8615c275ffbe49106cf85fbab1566b92559a251a5535a217f211dfa3f2
+```
+
 ## Contribute
 
 If you would like to contribute to the project, please fork it and send us a pull request.  Please add tests

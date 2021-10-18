@@ -1,6 +1,8 @@
 package goutil
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"log"
 	"math"
@@ -124,4 +126,24 @@ func IntIndex(slice []uint, val uint) (int, bool) {
 		}
 	}
 	return -1, false
+}
+
+// Remove all special characters e.g. Aman C。Salcedo will become Aman C Salcedo
+func CleanString(s string) string {
+	// Make a Regex to say we only want letters and numbers
+	reg, err := regexp.Compile("[^a-zA-Z0-9 ]+")
+	if err != nil {
+		// log.Fatal(err)
+		return ""
+	}
+	processedString := reg.ReplaceAllString(s, "")
+	return processedString
+}
+
+func HashString(val string) string {
+	key := []byte(val)
+	h := sha256.New()
+	h.Write(key)
+	sha1_hash := hex.EncodeToString(h.Sum(nil))
+	return sha1_hash
 }

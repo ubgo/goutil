@@ -130,3 +130,23 @@ func Test_IntIndex(t *testing.T) {
 		t.Errorf("Returned = %d; want %s", result, "-1")
 	}
 }
+
+func Test_CleanString(t *testing.T) {
+	result := CleanString("Aman C。Salcedo")
+	if result != "Aman CSalcedo" {
+		t.Errorf("Returned = %s; want %s", result, "Aman CSalcedo")
+	}
+
+	result = CleanString("##Khanakia")
+	if result != "Khanakia" {
+		t.Errorf("Returned = %s; want %s", result, "Khanakia")
+	}
+}
+
+func Test_HashString(t *testing.T) {
+	result := HashString("luci")
+	want := "2fdcbc8615c275ffbe49106cf85fbab1566b92559a251a5535a217f211dfa3f2"
+	if result != want {
+		t.Errorf("Returned = %s; want %s", result, want)
+	}
+}
