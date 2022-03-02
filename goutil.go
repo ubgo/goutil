@@ -35,6 +35,27 @@ func FullName(firstName string, lastName string) string {
 	return name
 }
 
+type Name struct {
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+}
+
+// Get FirstName and LastName from the FullName
+func ParseName(fullName string) Name {
+	nameParts := strings.Split(strings.TrimSpace(fullName), " ")
+
+	var name Name
+	if len(nameParts) > 0 {
+		name.FirstName = nameParts[0]
+	}
+
+	if len(nameParts) > 1 {
+		name.LastName = nameParts[1]
+	}
+
+	return name
+}
+
 // Env get key environment variable if exist otherwise return defalutValue
 func Env(key, defaultValue string) string {
 	value := os.Getenv(key)
@@ -146,4 +167,11 @@ func HashString(val string) string {
 	h.Write(key)
 	sha1_hash := hex.EncodeToString(h.Sum(nil))
 	return sha1_hash
+}
+
+// Strip all email from strings e.g. My email is abc@demo.com. will become My email is.
+func StripEmails(s string) string {
+	const regex = `\S*@\S*\s?`
+	r := regexp.MustCompile(regex)
+	return r.ReplaceAllString(s, "")
 }
