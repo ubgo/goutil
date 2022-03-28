@@ -1,6 +1,7 @@
 package goutil
 
 import (
+	"crypto/md5"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -11,6 +12,8 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 // FuncName will return the current function's name.
@@ -74,6 +77,13 @@ func RandString(n int) string {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
 	return string(b)
+}
+
+func RandMD5String() string {
+	secret := uuid.New().String()
+	key := []byte(secret)
+	hash := md5.Sum(key)
+	return hex.EncodeToString(hash[:])
 }
 
 // Convert any string to snakecase StudentID will become student_id
