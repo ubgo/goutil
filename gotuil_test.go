@@ -120,12 +120,12 @@ func Test_UintIndex(t *testing.T) {
 }
 
 func Test_IntIndex(t *testing.T) {
-	result, _ := IntIndex([]uint{1, 2, 3}, 2)
+	result, _ := IntIndex([]int{1, 2, 3}, 2)
 	if result != 1 {
 		t.Errorf("Returned = %d; want %s", result, "1")
 	}
 
-	result, _ = IntIndex([]uint{1, 2, 3}, 12)
+	result, _ = IntIndex([]int{1, 2, 3}, 12)
 	if result != -1 {
 		t.Errorf("Returned = %d; want %s", result, "-1")
 	}

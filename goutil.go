@@ -9,6 +9,7 @@ import (
 	"math"
 	"math/rand"
 	"os"
+	"reflect"
 	"regexp"
 	"runtime"
 	"strings"
@@ -132,6 +133,15 @@ func Use(vals ...interface{}) {
 	}
 }
 
+func StringIndexWithLower(slice []string, val string) (int, bool) {
+	for i, item := range slice {
+		if item == strings.ToLower(val) {
+			return i, true
+		}
+	}
+	return -1, false
+}
+
 func StringIndex(slice []string, val string) (int, bool) {
 	for i, item := range slice {
 		if item == val {
@@ -150,13 +160,30 @@ func UintIndex(slice []uint, val uint) (int, bool) {
 	return -1, false
 }
 
-func IntIndex(slice []uint, val uint) (int, bool) {
+func IntIndex(slice []int, val int) (int, bool) {
 	for i, item := range slice {
 		if item == val {
 			return i, true
 		}
 	}
 	return -1, false
+}
+
+func UUIDIndex(slice []uuid.UUID, val uuid.UUID) (int, bool) {
+	for i, item := range slice {
+		if item == val {
+			return i, true
+		}
+	}
+	return -1, false
+}
+
+func StringArrayToUUIDArray(val []string) []uuid.UUID {
+	var uids []uuid.UUID
+	for _, v := range val {
+		uids = append(uids, uuid.MustParse(v))
+	}
+	return uids
 }
 
 // Remove all special characters e.g. Aman C。Salcedo will become Aman C Salcedo
@@ -184,4 +211,39 @@ func StripEmails(s string) string {
 	const regex = `\S*@\S*\s?`
 	r := regexp.MustCompile(regex)
 	return r.ReplaceAllString(s, "")
+}
+
+func GetTypeName(myvar interface{}) string {
+	valueOf := reflect.ValueOf(myvar)
+
+	if valueOf.Type().Kind() == reflect.Ptr {
+		return (reflect.Indirect(valueOf).Type().Name())
+	} else {
+		return (valueOf.Type().Name())
+	}
+}
+
+// Get Nested TypeName as String func to make the Preload Typesafe instead of hardcoded
+// fmt.Println(util.GormTypeName(uxmpim_type.Item{}, uxmpim_type.ItemStatus{}))
+// output: Item.ItemStatus
+func GormTypeName(values ...interface{}) string {
+	var typeNames []string
+	for _, val := range values {
+		typeNames = append(typeNames, GetTypeName(val))
+	}
+
+	if len(typeNames) == 0 {
+		return ""
+	}
+
+	return strings.Join(typeNames, ".")
+}
+
+func TypeToString(data interface{}) string {
+	mdata, err := json.Marshal(data)
+	if err != nil {
+		return ""
+	}
+
+	return string(mdata)
 }
