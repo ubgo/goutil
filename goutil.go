@@ -133,7 +133,7 @@ func Use(vals ...interface{}) {
 	}
 }
 
-func StringIndexWithLower(slice []string, val string) (int, bool) {
+func StringIndexWithLowerCase(slice []string, val string) (int, bool) {
 	for i, item := range slice {
 		if item == strings.ToLower(val) {
 			return i, true
