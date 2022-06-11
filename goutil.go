@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -67,6 +68,19 @@ func Env(key, defaultValue string) string {
 		return defaultValue
 	}
 	return value
+}
+
+func RandomNumber(length int) string {
+	rand.Seed(time.Now().UnixNano())
+
+	chars := []rune("123456789")
+	// length := 8
+	var b strings.Builder
+	for i := 0; i < length; i++ {
+		b.WriteRune(chars[rand.Intn(len(chars))])
+	}
+	str := b.String() // E.g. "ExcbsVQs"
+	return str
 }
 
 // Define n as number to limit the length of the random string
@@ -246,4 +260,20 @@ func TypeToString(data interface{}) string {
 	}
 
 	return string(mdata)
+}
+
+func IsErrNil(err error) bool {
+	if err == nil {
+		return true
+	}
+
+	return false
+}
+
+func IsErrNotNil(err error) bool {
+	if err != nil {
+		return true
+	}
+
+	return false
 }
