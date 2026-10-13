@@ -1,4 +1,4 @@
-# Goutil  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/knesklab/util/blob/master/LICENSE)
+# Goutil  [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 A small sets of golang indpendent packages for daily usage in any project.
 
@@ -135,4 +135,4 @@ for any new features or bug fixes.
 
 ## License
 
-goutil is [MIT licensed](LICENSE).
+goutil is [Apache-2.0 licensed](LICENSE).
